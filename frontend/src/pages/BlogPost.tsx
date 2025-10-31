@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import axios from 'axios'
-import { Button, LoadingSpinner, AuthorInfo } from '../components'
+import { Button, LoadingSpinner, AuthorInfo, Footer } from '../components'
 
 const BACKEND_URL = "http://localhost:8787" // Update this to your backend URL
 
@@ -223,12 +223,12 @@ export const BlogPost = () => {
             <article className="max-w-3xl mx-auto px-6 py-12">
                 {/* Header */}
                 <header className="mb-12">
-                    <h1 className="text-display font-serif text-black leading-tight mb-6">
+                    <h1 className="text-5xl md:text-6xl font-serif text-gray-900 leading-tight mb-8 font-bold">
                         {blog.title}
                     </h1>
                     
                     {blog.subtitle && (
-                        <h2 className="text-title-large font-serif text-gray-dark leading-normal mb-8">
+                        <h2 className="text-2xl md:text-3xl font-serif text-gray-600 leading-relaxed mb-8">
                             {blog.subtitle}
                         </h2>
                     )}
@@ -254,42 +254,42 @@ export const BlogPost = () => {
                     </div>
 
                     {/* Engagement bar */}
-                    <div className="flex items-center justify-between py-4 border-y border-gray-border">
-                        <div className="flex items-center space-x-6">
+                    <div className="flex items-center justify-between py-5 border-y border-gray-200 bg-gray-50 px-6 -mx-6 rounded-lg">
+                        <div className="flex items-center space-x-8">
                             <button
                                 onClick={handleClap}
-                                className={`flex items-center space-x-2 transition-colors ${
+                                className={`flex items-center space-x-2 transition-all hover:scale-105 ${
                                     blog.isUserClapped 
-                                        ? 'text-green' 
-                                        : 'text-gray-medium hover:text-black'
+                                        ? 'text-green-600' 
+                                        : 'text-gray-500 hover:text-gray-900'
                                 }`}
                             >
                                 <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
                                     <path d="M14.828 3.879a2.5 2.5 0 0 1 3.536 0l1.414 1.414a2.5 2.5 0 0 1 0 3.536L8.464 20.142a2.5 2.5 0 0 1-1.768.732H3.5a.5.5 0 0 1-.5-.5v-3.196a2.5 2.5 0 0 1 .732-1.768L14.828 3.879z"/>
                                 </svg>
-                                <span className="text-body-small font-sans">{blog.claps}</span>
+                                <span className="text-sm font-sans font-medium">{blog.claps}</span>
                             </button>
 
                             <button
                                 onClick={() => setShowComments(!showComments)}
-                                className="flex items-center space-x-2 text-gray-medium hover:text-black transition-colors"
+                                className="flex items-center space-x-2 text-gray-500 hover:text-gray-900 transition-all hover:scale-105"
                             >
                                 <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                                 </svg>
-                                <span className="text-body-small font-sans">{blog.comments.length}</span>
+                                <span className="text-sm font-sans font-medium">{blog.comments.length}</span>
                             </button>
                         </div>
 
                         <div className="flex items-center space-x-4">
-                            <button className="text-gray-medium hover:text-black transition-colors">
-                                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <button className="text-gray-500 hover:text-gray-900 transition-all hover:scale-110 p-2 hover:bg-gray-200 rounded-full" title="Share">
+                                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" />
                                 </svg>
                             </button>
                             
-                            <button className="text-gray-medium hover:text-black transition-colors">
-                                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <button className="text-gray-500 hover:text-gray-900 transition-all hover:scale-110 p-2 hover:bg-gray-200 rounded-full" title="Save">
+                                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
                                 </svg>
                             </button>
@@ -300,7 +300,7 @@ export const BlogPost = () => {
                 {/* Content */}
                 <div className="article-content prose prose-lg max-w-none">
                     {blog.content.split('\n').map((paragraph, index) => (
-                        <p key={index} className="text-body font-serif text-black leading-relaxed mb-6">
+                        <p key={index} className="text-xl font-serif text-gray-800 leading-relaxed mb-8">
                             {paragraph}
                         </p>
                     ))}
@@ -308,12 +308,12 @@ export const BlogPost = () => {
 
                 {/* Tags */}
                 {blog.tags.length > 0 && (
-                    <div className="mt-12 pt-8 border-t border-gray-border">
-                        <div className="flex flex-wrap gap-2">
+                    <div className="mt-16 pt-8 border-t border-gray-200">
+                        <div className="flex flex-wrap gap-3">
                             {blog.tags.map((tag, index) => (
                                 <span
                                     key={index}
-                                    className="px-3 py-1 bg-gray-light text-gray-dark text-body-small font-sans rounded-full"
+                                    className="px-4 py-2 bg-gray-100 text-gray-700 text-sm font-sans font-medium rounded-full hover:bg-gray-200 transition-colors cursor-pointer border border-gray-200"
                                 >
                                     {tag}
                                 </span>
@@ -323,37 +323,39 @@ export const BlogPost = () => {
                 )}
 
                 {/* Author bio */}
-                <div className="mt-16 pt-8 border-t border-gray-border">
-                    <div className="flex items-start space-x-4">
-                        <div className="w-16 h-16 bg-gradient-to-br from-green to-green-dark rounded-full flex items-center justify-center text-white font-serif text-title-small">
-                            {blog.author.name.charAt(0)}
-                        </div>
-                        
-                        <div className="flex-1">
-                            <div className="flex items-center justify-between mb-2">
-                                <h3 className="text-title-small font-serif text-black">
-                                    {blog.author.name}
-                                </h3>
-                                <Button
-                                    variant={isFollowing ? "secondary" : "primary"}
-                                    size="sm"
-                                    onClick={handleFollow}
-                                >
-                                    {isFollowing ? 'Following' : 'Follow'}
-                                </Button>
+                <div className="mt-16 pt-10 border-t border-gray-200">
+                    <div className="bg-gradient-to-br from-gray-50 to-white p-8 rounded-xl border border-gray-200 shadow-sm">
+                        <div className="flex items-start space-x-5">
+                            <div className="w-20 h-20 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center text-white font-serif text-3xl font-bold shadow-md flex-shrink-0">
+                                {blog.author.name.charAt(0)}
                             </div>
                             
-                            {blog.author.bio && (
-                                <p className="text-body text-gray-medium font-sans">
-                                    {blog.author.bio}
-                                </p>
-                            )}
-                            
-                            {blog.author.followersCount && (
-                                <p className="text-body-small text-gray-medium font-sans mt-2">
-                                    {blog.author.followersCount.toLocaleString()} followers
-                                </p>
-                            )}
+                            <div className="flex-1">
+                                <div className="flex items-center justify-between mb-3">
+                                    <h3 className="text-2xl font-serif text-gray-900 font-bold">
+                                        {blog.author.name}
+                                    </h3>
+                                    <Button
+                                        variant={isFollowing ? "secondary" : "primary"}
+                                        size="sm"
+                                        onClick={handleFollow}
+                                    >
+                                        {isFollowing ? 'Following' : 'Follow'}
+                                    </Button>
+                                </div>
+                                
+                                {blog.author.bio && (
+                                    <p className="text-base text-gray-600 font-sans leading-relaxed mb-3">
+                                        {blog.author.bio}
+                                    </p>
+                                )}
+                                
+                                {blog.author.followersCount && (
+                                    <p className="text-sm text-gray-500 font-sans font-medium">
+                                        {blog.author.followersCount.toLocaleString()} followers
+                                    </p>
+                                )}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -423,6 +425,9 @@ export const BlogPost = () => {
                     </div>
                 )}
             </article>
+
+            {/* Footer */}
+            <Footer />
         </div>
     )
 }

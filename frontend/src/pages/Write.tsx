@@ -113,12 +113,13 @@ export const Write = () => {
     return (
         <div className="min-h-screen bg-white">
             {/* Header */}
-            <header className="sticky top-0 bg-white border-b border-gray-border z-10">
+            <header className="sticky top-0 bg-white border-b border-gray-200 z-10 shadow-sm">
                 <div className="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
                     <div className="flex items-center space-x-6">
                         <button 
                             onClick={() => navigate('/')}
-                            className="text-gray-medium hover:text-black transition-colors"
+                            className="text-gray-500 hover:text-gray-900 transition-colors"
+                            title="Close"
                         >
                             <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -127,14 +128,14 @@ export const Write = () => {
                         
                         <div className="flex items-center space-x-3">
                             {isSaving && (
-                                <div className="flex items-center space-x-2 text-gray-medium">
+                                <div className="flex items-center space-x-2 text-gray-500">
                                     <LoadingSpinner size="sm" />
-                                    <span className="text-body-small font-sans">Saving...</span>
+                                    <span className="text-sm font-sans">Saving...</span>
                                 </div>
                             )}
                             
                             {lastSaved && !isSaving && (
-                                <span className="text-body-small text-gray-medium font-sans">
+                                <span className="text-sm text-gray-500 font-sans">
                                     Saved at {formatTime(lastSaved)}
                                 </span>
                             )}
@@ -151,8 +152,11 @@ export const Write = () => {
                             Publish
                         </Button>
                         
-                        <button className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center">
-                            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <button 
+                            className="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors"
+                            title="More options"
+                        >
+                            <svg className="w-4 h-4 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
                             </svg>
                         </button>
@@ -170,7 +174,7 @@ export const Write = () => {
                             value={title}
                             onChange={(e) => setTitle(e.target.value)}
                             placeholder="Title"
-                            className="w-full text-display font-serif text-black placeholder-gray-light border-none outline-none resize-none overflow-hidden bg-transparent"
+                            className="w-full text-5xl md:text-6xl font-serif text-gray-900 placeholder-gray-400 border-none outline-none resize-none overflow-hidden bg-transparent focus:ring-0"
                             style={{ 
                                 minHeight: '60px',
                                 lineHeight: '1.2'
@@ -185,7 +189,7 @@ export const Write = () => {
                             value={subtitle}
                             onChange={(e) => setSubtitle(e.target.value)}
                             placeholder="Write a subtitle..."
-                            className="w-full text-title-large font-serif text-gray-dark placeholder-gray-light border-none outline-none resize-none bg-transparent"
+                            className="w-full text-2xl md:text-3xl font-serif text-gray-600 placeholder-gray-400 border-none outline-none resize-none bg-transparent focus:ring-0"
                             style={{ 
                                 minHeight: '40px',
                                 lineHeight: '1.3'
@@ -199,33 +203,33 @@ export const Write = () => {
                         <div
                             ref={contentRef}
                             contentEditable
-                            className="article-content min-h-96 text-body font-serif text-black outline-none"
-                            style={{ lineHeight: '1.58' }}
+                            className="article-content min-h-96 text-xl font-serif text-gray-800 outline-none focus:ring-0 leading-relaxed"
+                            style={{ lineHeight: '1.75' }}
                             onInput={(e) => setContent(e.currentTarget.innerText)}
                             data-placeholder="Tell your story..."
                         />
                         
                         {content.length === 0 && (
-                            <div className="absolute top-0 left-0 text-gray-light font-serif text-body pointer-events-none">
+                            <div className="absolute top-0 left-0 text-gray-400 font-serif text-xl pointer-events-none">
                                 Tell your story...
                             </div>
                         )}
                     </div>
 
                     {/* Writing Tools */}
-                    <div className="flex items-center space-x-4 pt-8 border-t border-gray-border">
-                        <button className="flex items-center space-x-2 text-gray-medium hover:text-black transition-colors">
+                    <div className="flex items-center space-x-6 pt-8 border-t border-gray-200">
+                        <button className="flex items-center space-x-2 text-gray-500 hover:text-gray-900 transition-colors">
                             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                             </svg>
-                            <span className="text-body-small font-sans">Add image</span>
+                            <span className="text-sm font-sans">Add image</span>
                         </button>
                         
-                        <button className="flex items-center space-x-2 text-gray-medium hover:text-black transition-colors">
+                        <button className="flex items-center space-x-2 text-gray-500 hover:text-gray-900 transition-colors">
                             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 4V2a1 1 0 011-1h8a1 1 0 011 1v2m4 0H5a2 2 0 00-2 2v12a2 2 0 002 2h14a2 2 0 002-2V6a2 2 0 00-2-2z" />
                             </svg>
-                            <span className="text-body-small font-sans">Code block</span>
+                            <span className="text-sm font-sans">Code block</span>
                         </button>
                     </div>
                 </div>
@@ -233,27 +237,27 @@ export const Write = () => {
 
             {/* Publish Modal */}
             {showPublishModal && (
-                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-                    <div className="bg-white rounded-lg max-w-md w-full p-6">
-                        <h2 className="text-title-medium font-serif text-black mb-4">
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4 backdrop-blur-sm">
+                    <div className="bg-white rounded-lg max-w-md w-full p-8 shadow-2xl">
+                        <h2 className="text-3xl font-serif text-gray-900 mb-6">
                             Ready to publish?
                         </h2>
                         
-                        <div className="space-y-4 mb-6">
+                        <div className="space-y-4 mb-8">
                             <div>
-                                <label className="block text-body-small font-sans font-medium text-black mb-2">
+                                <label className="block text-sm font-sans font-medium text-gray-700 mb-2">
                                     Add tags (up to 5)
                                 </label>
-                                <div className="flex flex-wrap gap-2 mb-2">
+                                <div className="flex flex-wrap gap-2 mb-3">
                                     {tags.map((tag, index) => (
                                         <span 
                                             key={index}
-                                            className="inline-flex items-center px-3 py-1 rounded-full text-body-small font-sans bg-gray-light text-gray-dark"
+                                            className="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-sans bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors"
                                         >
                                             {tag}
                                             <button
                                                 onClick={() => removeTag(index)}
-                                                className="ml-2 text-gray-medium hover:text-gray-dark"
+                                                className="ml-2 text-gray-500 hover:text-gray-700 text-lg"
                                             >
                                                 ×
                                             </button>
@@ -266,8 +270,8 @@ export const Write = () => {
                                         value={newTag}
                                         onChange={(e) => setNewTag(e.target.value)}
                                         onKeyDown={handleAddTag}
-                                        placeholder="Add a tag..."
-                                        className="w-full px-3 py-2 border border-gray-border rounded-md focus:outline-none focus:ring-2 focus:ring-green focus:border-transparent"
+                                        placeholder="Add a tag and press Enter..."
+                                        className="w-full px-4 py-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent text-gray-900 placeholder-gray-400"
                                     />
                                 )}
                             </div>

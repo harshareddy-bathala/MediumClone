@@ -129,11 +129,11 @@ export const Signup = () => {
 
             {/* Modal */}
             <Modal isOpen={showModal} onClose={handleCloseModal} className="max-w-lg">
-                <div className="text-center mb-8">
-                    <h1 className="text-title-medium font-serif text-black mb-2">
+                <div className="text-center mb-10">
+                    <h1 className="text-4xl font-serif text-gray-900 mb-4 font-bold">
                         Join Medium.
                     </h1>
-                    <p className="text-body text-gray-medium font-sans">
+                    <p className="text-base text-gray-600 font-sans leading-relaxed">
                         Create an account to personalize your homepage, follow your favorite authors and publications, applaud stories you love, and more.
                     </p>
                 </div>
@@ -197,24 +197,24 @@ export const Signup = () => {
                         {/* Password Strength Indicator */}
                         {formData.password && (
                             <div className="mt-2">
-                                <div className="flex space-x-1 mb-1">
+                                <div className="flex space-x-1.5 mb-2">
                                     {[1, 2, 3, 4, 5].map((level) => (
                                         <div
                                             key={level}
-                                            className={`h-1 flex-1 rounded-full ${
+                                            className={`h-1.5 flex-1 rounded-full transition-all ${
                                                 level <= passwordStrength.score
                                                     ? passwordStrength.score <= 2
                                                         ? 'bg-red-500'
                                                         : passwordStrength.score <= 3
                                                         ? 'bg-yellow-500'
                                                         : 'bg-green-500'
-                                                    : 'bg-gray-light'
+                                                    : 'bg-gray-200'
                                             }`}
                                         />
                                     ))}
                                 </div>
                                 {passwordStrength.text && (
-                                    <p className={`text-caption font-sans ${passwordStrength.color}`}>
+                                    <p className={`text-xs font-sans font-medium ${passwordStrength.color}`}>
                                         Password strength: {passwordStrength.text}
                                     </p>
                                 )}
@@ -223,21 +223,21 @@ export const Signup = () => {
                     </div>
 
                     {/* Terms Agreement */}
-                    <div className="flex items-start space-x-3">
+                    <div className="flex items-start space-x-3 bg-gray-50 p-4 rounded-lg border border-gray-200">
                         <input
                             id="terms"
                             type="checkbox"
                             checked={agreedToTerms}
                             onChange={(e) => setAgreedToTerms(e.target.checked)}
-                            className="mt-1 h-4 w-4 text-green border-gray-border rounded focus:ring-green focus:ring-2"
+                            className="mt-1 h-4 w-4 text-green-600 border-gray-300 rounded focus:ring-green-500 focus:ring-2 cursor-pointer"
                         />
-                        <label htmlFor="terms" className="text-body-small text-gray-medium font-sans">
+                        <label htmlFor="terms" className="text-sm text-gray-700 font-sans cursor-pointer">
                             I agree to Medium's{' '}
-                            <a href="#" className="text-black hover:text-gray-dark transition-colors">
+                            <a href="#" className="text-gray-900 hover:text-gray-700 underline transition-colors font-medium">
                                 Terms of Service
                             </a>{' '}
                             and{' '}
-                            <a href="#" className="text-black hover:text-gray-dark transition-colors">
+                            <a href="#" className="text-gray-900 hover:text-gray-700 underline transition-colors font-medium">
                                 Privacy Policy
                             </a>
                             , and to receive emails and updates.

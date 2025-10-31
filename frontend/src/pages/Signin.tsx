@@ -91,11 +91,11 @@ export const Signin = () => {
 
             {/* Modal */}
             <Modal isOpen={showModal} onClose={handleCloseModal} className="max-w-lg">
-                <div className="text-center mb-8">
-                    <h1 className="text-title-medium font-serif text-black mb-2">
+                <div className="text-center mb-10">
+                    <h1 className="text-4xl font-serif text-gray-900 mb-4 font-bold">
                         Welcome back.
                     </h1>
-                    <p className="text-body text-gray-medium font-sans">
+                    <p className="text-base text-gray-600 font-sans leading-relaxed">
                         Sign in to access your personalized homepage, follow authors and topics you love, and interact with stories.
                     </p>
                 </div>
@@ -173,13 +173,13 @@ export const Signin = () => {
                     </div>
                 </form>
 
-                {/* Footer Links */}
-                <div className="mt-8 pt-6 border-t border-gray-border text-center">
-                    <p className="text-caption text-gray-medium font-sans">
+                    {/* Footer Links */}
+                <div className="mt-8 pt-6 border-t border-gray-200 text-center">
+                    <p className="text-xs text-gray-500 font-sans leading-relaxed">
                         Click "Sign in" to agree to Medium's{' '}
-                        <a href="#" className="hover:text-black transition-colors">Terms of Service</a>{' '}
+                        <a href="#" className="text-gray-700 hover:text-gray-900 underline transition-colors">Terms of Service</a>{' '}
                         and acknowledge that Medium's{' '}
-                        <a href="#" className="hover:text-black transition-colors">Privacy Policy</a>{' '}
+                        <a href="#" className="text-gray-700 hover:text-gray-900 underline transition-colors">Privacy Policy</a>{' '}
                         applies to you.
                     </p>
                 </div>

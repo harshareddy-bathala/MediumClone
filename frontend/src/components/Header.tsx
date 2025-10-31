@@ -21,25 +21,30 @@ export const Header = ({ isAuthenticated = false, user }: HeaderProps) => {
   }
 
   return (
-    <header className="sticky top-0 z-40 bg-white border-b border-gray-border">
+    <header className="sticky top-0 z-40 bg-white border-b border-gray-200 shadow-sm backdrop-blur-sm bg-white/95">
       <div className="max-w-container mx-auto px-6">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link to="/" className="text-black text-title-medium font-serif font-bold tracking-tight">
-            Medium
+          <Link to="/" className="flex items-center space-x-2 group">
+            <div className="w-10 h-10 bg-gray-900 rounded-sm flex items-center justify-center group-hover:bg-gray-800 transition-colors">
+              <span className="text-white text-2xl font-serif italic font-bold">M</span>
+            </div>
+            <span className="text-gray-900 text-3xl font-serif font-bold tracking-tight group-hover:text-gray-700 transition-colors hidden sm:block">
+              Medium
+            </span>
           </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-6">
             {!isAuthenticated ? (
               <>
-                <Link to="/write" className="btn-ghost">
+                <Link to="/write" className="text-gray-600 hover:text-gray-900 px-3 py-2 font-sans text-sm font-medium transition-colors">
                   Write
                 </Link>
-                <Link to="/signin" className="btn-ghost">
+                <Link to="/signin" className="text-gray-600 hover:text-gray-900 px-3 py-2 font-sans text-sm font-medium transition-colors">
                   Sign in
                 </Link>
-                <Link to="/signup" className="btn-primary">
+                <Link to="/signup" className="bg-gray-900 text-white px-5 py-2 rounded-full text-sm font-sans font-medium hover:bg-gray-800 transition-colors shadow-sm hover:shadow-md">
                   Get started
                 </Link>
               </>

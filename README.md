@@ -1,3 +1,4 @@
+it
 # Medium Clone
 
 A full-stack Medium clone built with modern web technologies. This project replicates the core functionality of Medium, including user authentication, blog post creation, and a clean reading experience.
