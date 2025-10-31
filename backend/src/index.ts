@@ -157,6 +157,28 @@ app.put('/api/v1/blog', async (c) => {
   return c.json(post)
 })
 
+// Get All Blog Posts (must be before /:id route to avoid matching "bulk" as an ID)
+app.get('/api/v1/blog/bulk', async (c) => {
+  const prisma = new PrismaClient({
+    datasourceUrl: c.env?.DATABASE_URL,
+  }).$extends(withAccelerate())
+  
+  const posts = await prisma.post.findMany({
+    select: {
+      content: true,
+      title: true,
+      id: true,
+      author: {
+        select: {
+          name: true
+        }
+      }
+    }
+  })
+  
+  return c.json(posts)
+})
+
 // Get Single Blog Post
 app.get('/api/v1/blog/:id', async (c) => {
   const id = c.req.param('id')
@@ -181,28 +203,6 @@ app.get('/api/v1/blog/:id', async (c) => {
   })
   
   return c.json(post)
-})
-
-// Get All Blog Posts
-app.get('/api/v1/blog/bulk', async (c) => {
-  const prisma = new PrismaClient({
-    datasourceUrl: c.env?.DATABASE_URL,
-  }).$extends(withAccelerate())
-  
-  const posts = await prisma.post.findMany({
-    select: {
-      content: true,
-      title: true,
-      id: true,
-      author: {
-        select: {
-          name: true
-        }
-      }
-    }
-  })
-  
-  return c.json(posts)
 })
 
 export default app
