@@ -2,6 +2,7 @@ import { PrismaClient } from '@prisma/client/edge'
 import { withAccelerate } from '@prisma/extension-accelerate'
 import { Hono } from 'hono'
 import { sign, verify } from 'hono/jwt'
+import bcrypt from 'bcryptjs'
 
 const app = new Hono<{
   Bindings: {
@@ -43,18 +44,36 @@ app.post('/api/v1/user/signup', async (c) => {
   const body = await c.req.json()
   
   try {
+    // Validate password length
+    if (!body.password || body.password.length < 6) {
+      c.status(400)
+      return c.json({ error: "Password must be at least 6 characters long" })
+    }
+
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!body.email || !emailRegex.test(body.email)) {
+      c.status(400)
+      return c.json({ error: "Invalid email format" })
+    }
+
+    // Hash the password before storing
+    const hashedPassword = await bcrypt.hash(body.password, 10)
+    
     const user = await prisma.user.create({
       data: {
         email: body.email,
-        password: body.password
+        password: hashedPassword,
+        name: body.name || null
       }
     })
     
     const jwt = await sign({ id: user.id }, c.env.JWT_SECRET)
     return c.json({ jwt })
   } catch(e) {
+    console.error('Signup error:', e)
     c.status(403)
-    return c.json({ error: "error while signing up" })
+    return c.json({ error: "User with this email already exists or error while signing up" })
   }
 })
 
@@ -65,19 +84,34 @@ app.post('/api/v1/user/signin', async (c) => {
   }).$extends(withAccelerate())
 
   const body = await c.req.json()
-  const user = await prisma.user.findUnique({
-    where: {
-      email: body.email
+  
+  try {
+    const user = await prisma.user.findUnique({
+      where: {
+        email: body.email
+      }
+    })
+
+    if (!user) {
+      c.status(403)
+      return c.json({ error: "Invalid email or password" })
     }
-  })
 
-  if (!user) {
+    // Verify the password using bcrypt
+    const isPasswordValid = await bcrypt.compare(body.password, user.password)
+    
+    if (!isPasswordValid) {
+      c.status(403)
+      return c.json({ error: "Invalid email or password" })
+    }
+
+    const jwt = await sign({ id: user.id }, c.env.JWT_SECRET)
+    return c.json({ jwt })
+  } catch(e) {
+    console.error('Signin error:', e)
     c.status(403)
-    return c.json({ error: "user not found" })
+    return c.json({ error: "Error while signing in" })
   }
-
-  const jwt = await sign({ id: user.id }, c.env.JWT_SECRET)
-  return c.json({ jwt })
 })
 
 // Create Blog Post

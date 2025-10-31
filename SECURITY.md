@@ -81,9 +81,13 @@ Always use `.example` files to document required environment variables without e
 
 ### Password Security
 
-⚠️ **Current Issue**: Passwords are stored in plain text in the database. This will be fixed in an upcoming security update.
+✅ **FIXED**: Passwords are now securely hashed using bcrypt before being stored in the database.
 
-**Upcoming Fix**: Implement bcrypt password hashing before storing passwords.
+**Implementation Details**:
+- Uses bcryptjs with a salt round of 10
+- Password minimum length: 6 characters
+- Passwords are never stored in plain text
+- Password comparison uses bcrypt.compare() for secure verification
 
 ---
 
@@ -103,8 +107,8 @@ If you discover a security vulnerability in this project, please:
 | Date | Issue | Status |
 |------|-------|--------|
 | Oct 31, 2025 | Exposed Prisma Accelerate API key | ✅ Fixed |
-| Oct 31, 2025 | Plain text password storage | ⏳ Planned |
-| Oct 31, 2025 | Missing input validation | ⏳ Planned |
+| Oct 31, 2025 | Plain text password storage | ✅ Fixed |
+| Oct 31, 2025 | Missing input validation | 🔄 Partial (email & password) |
 | Oct 31, 2025 | No CORS configuration | ⏳ Planned |
 
 ---
@@ -115,13 +119,15 @@ If you discover a security vulnerability in this project, please:
 - [x] Add `.env.example` files
 - [x] Update `.gitignore` to exclude sensitive files
 - [x] Document environment variable setup
-- [ ] Implement password hashing
-- [ ] Add input validation
+- [x] Implement password hashing (bcrypt)
+- [x] Add basic input validation (email format, password length)
 - [ ] Configure CORS properly
 - [ ] Add rate limiting
 - [ ] Implement CSRF protection
 - [ ] Add security headers
 - [ ] Set up monitoring and alerting
+- [ ] Add SQL injection protection (using Prisma ORM - ✅ already protected)
+- [ ] Implement account lockout after failed login attempts
 
 ---
 
