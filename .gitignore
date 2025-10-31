@@ -11,7 +11,7 @@ dist/
 dist-ssr/
 build/
 
-# Environment variables
+# Environment variables (NEVER commit these!)
 .env
 .env.local
 .env.development.local
@@ -19,6 +19,8 @@ build/
 .env.production.local
 .env.production
 .dev.vars
+**/.env
+**/.dev.vars
 
 # Logs
 logs/

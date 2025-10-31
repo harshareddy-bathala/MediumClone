@@ -1,10 +1,6 @@
 { "main": "src/index.ts",
   "name": "backend",
-  "compatibility_date": "2023-12-01",
-
-  "vars": {
-    "DATABASE_URL": "prisma+postgres://accelerate.prisma-data.net/?api_key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqd3RfaWQiOjEsInNlY3VyZV9rZXkiOiJza19Bd1FvYVpXU0J1QlhZVHNtZmJScFEiLCJhcGlfa2V5IjoiMDFLNDFYQUZXR0pOMDFLUDI0RkRNVEYwMDIiLCJ0ZW5hbnRfaWQiOiJlYWU4OGFmYTZmOTk5MTlkMDUyN2Y2MzljZDRhMjhjODE2NWVmODQ3ZGYyYmIzYzg0NmE3MjkwMjM0NzdhZDVlIiwiaW50ZXJuYWxfc2VjcmV0IjoiODMxZGNmMzUtODAxZi00ZjA5LWIzNjYtMjY5OGM1OTc5OTNmIn0.FWmx7v9gJfGHeea8GEVaKitNjKHRY3uN8bSoXP1nZcw"
-  }
+  "compatibility_date": "2023-12-01"
   // "compatibility_flags": [
   //   "nodejs_compat"
   // ],

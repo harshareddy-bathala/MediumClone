@@ -1,0 +1,11 @@
+# Cloudflare Workers Environment Variables
+# Copy this file to .dev.vars and fill in your actual values
+# NEVER commit .dev.vars to version control
+
+# Database Connection String
+# Get this from your Prisma Accelerate dashboard: https://www.prisma.io/data-platform
+DATABASE_URL="prisma+postgres://accelerate.prisma-data.net/?api_key=YOUR_PRISMA_ACCELERATE_API_KEY"
+
+# JWT Secret for Authentication
+# Generate a secure random string for production
+JWT_SECRET="your-super-secret-jwt-key-change-this-in-production"

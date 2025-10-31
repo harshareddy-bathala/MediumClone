@@ -55,11 +55,26 @@ medium/
    ```
 
 3. Set up environment variables:
-   Create a `.env` file in the backend directory with:
+   
+   **For local development (Prisma migrations):**
+   ```bash
+   # Copy the example file
+   cp .env.example .env
+   
+   # Edit .env and add your PostgreSQL database URL
+   # DATABASE_URL="postgresql://postgres:password@localhost:5432/medium_clone?schema=public"
    ```
-   DATABASE_URL="your_postgresql_connection_string"
-   JWT_SECRET="your_jwt_secret"
+
+   **For Cloudflare Workers (local development):**
+   ```bash
+   # Copy the example file
+   cp .dev.vars.example .dev.vars
+   
+   # Edit .dev.vars and add your Prisma Accelerate connection string and JWT secret
+   # Get Prisma Accelerate URL from: https://www.prisma.io/data-platform
    ```
+
+   ⚠️ **IMPORTANT**: Never commit `.env` or `.dev.vars` files to version control!
 
 4. Run Prisma migrations:
    ```bash
@@ -68,12 +83,12 @@ medium/
 
 5. Generate Prisma client:
    ```bash
-   npx prisma generate
+   npx prisma generate --no-engine
    ```
 
 6. Start the development server:
    ```bash
-   npm run dev
+   npx wrangler dev
    ```
 
 ### Frontend Setup
@@ -89,26 +104,55 @@ medium/
    ```
 
 3. Set up environment variables:
-   Create a `.env` file in the frontend directory with:
-   ```
-   VITE_API_URL="your_backend_api_url"
+   ```bash
+   # Copy the example file
+   cp .env.example .env
+   
+   # Edit .env and set your backend API URL
+   # For local development: VITE_API_URL="http://localhost:8787"
+   # For production: VITE_API_URL="https://your-backend-worker.workers.dev"
    ```
 
 4. Start the development server:
    ```bash
    npm run dev
    ```
+   
+   The app will be available at `http://localhost:5173`
 
 ## 🚀 Deployment
 
 ### Backend Deployment (Cloudflare Workers)
-```bash
-cd backend
-npm run deploy
-```
+
+1. Set production environment variables in Cloudflare dashboard:
+   ```bash
+   # Go to Workers & Pages > Your Worker > Settings > Variables
+   # Add the following secrets:
+   # - DATABASE_URL (your Prisma Accelerate connection string)
+   # - JWT_SECRET (a secure random string)
+   ```
+
+2. Deploy to Cloudflare Workers:
+   ```bash
+   cd backend
+   npx wrangler deploy
+   ```
 
 ### Frontend Deployment
-The frontend can be deployed to various platforms like Vercel, Netlify, or Cloudflare Pages.
+
+The frontend can be deployed to various platforms:
+
+**Vercel:**
+```bash
+cd frontend
+# Set environment variable VITE_API_URL to your deployed backend URL
+vercel --prod
+```
+
+**Netlify or Cloudflare Pages:**
+- Build command: `npm run build`
+- Publish directory: `dist`
+- Environment variable: `VITE_API_URL` = your backend URL
 
 ## ✨ Features
 
