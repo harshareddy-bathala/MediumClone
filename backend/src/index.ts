@@ -2,6 +2,7 @@ import { PrismaClient } from '@prisma/client/edge'
 import { withAccelerate } from '@prisma/extension-accelerate'
 import { Hono } from 'hono'
 import { sign, verify } from 'hono/jwt'
+import { cors } from 'hono/cors'
 import bcrypt from 'bcryptjs'
 
 const app = new Hono<{
@@ -13,6 +14,30 @@ const app = new Hono<{
     jwtPayload: any
   }
 }>()
+
+// CORS Configuration
+app.use('/*', cors({
+  origin: (origin) => {
+    // Allow requests from localhost for development
+    if (origin.includes('localhost') || origin.includes('127.0.0.1')) {
+      return origin
+    }
+    // Allow requests from Vercel, Netlify, or Cloudflare Pages (common deployment platforms)
+    if (origin.includes('vercel.app') || origin.includes('netlify.app') || origin.includes('pages.dev')) {
+      return origin
+    }
+    // Add your production domain here
+    // if (origin === 'https://your-domain.com') {
+    //   return origin
+    // }
+    return origin // For development, allow all origins (customize for production)
+  },
+  allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowHeaders: ['Content-Type', 'Authorization'],
+  exposeHeaders: ['Content-Length'],
+  maxAge: 600,
+  credentials: true,
+}))
 
 // Middleware for blog routes authentication
 app.use('/api/v1/blog/*', async (c, next) => {

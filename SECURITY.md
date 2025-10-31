@@ -89,6 +89,22 @@ Always use `.example` files to document required environment variables without e
 - Passwords are never stored in plain text
 - Password comparison uses bcrypt.compare() for secure verification
 
+### CORS Configuration
+
+✅ **FIXED**: CORS (Cross-Origin Resource Sharing) is now properly configured.
+
+**Implementation Details**:
+- Uses Hono's built-in CORS middleware
+- Allows requests from localhost and common deployment platforms
+- Supports preflight OPTIONS requests
+- Configurable allowed methods: GET, POST, PUT, DELETE, OPTIONS
+- Allows Authorization and Content-Type headers
+- Credentials enabled for authenticated requests
+- Max age: 600 seconds (10 minutes) for preflight cache
+
+**Production Setup**:
+To restrict origins in production, update the CORS configuration in `backend/src/index.ts` to specify your exact domain(s).
+
 ---
 
 ## Reporting a Vulnerability
@@ -109,7 +125,8 @@ If you discover a security vulnerability in this project, please:
 | Oct 31, 2025 | Exposed Prisma Accelerate API key | ✅ Fixed |
 | Oct 31, 2025 | Plain text password storage | ✅ Fixed |
 | Oct 31, 2025 | Missing input validation | 🔄 Partial (email & password) |
-| Oct 31, 2025 | No CORS configuration | ⏳ Planned |
+| Oct 31, 2025 | No CORS configuration | ✅ Fixed |
+| Oct 31, 2025 | API route order bug (/bulk unreachable) | ✅ Fixed |
 
 ---
 
@@ -121,7 +138,8 @@ If you discover a security vulnerability in this project, please:
 - [x] Document environment variable setup
 - [x] Implement password hashing (bcrypt)
 - [x] Add basic input validation (email format, password length)
-- [ ] Configure CORS properly
+- [x] Configure CORS properly
+- [x] Fix API route order bug
 - [ ] Add rate limiting
 - [ ] Implement CSRF protection
 - [ ] Add security headers
